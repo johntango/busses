@@ -12,18 +12,18 @@ async function fetchShuttles(){
 	
 }
 fetchShuttles().then(function(data){
-	var list = data.data;
-	list.forEach(function(bus){
+	var buses = data.data;
+	buses.forEach(function(bus){
 		var lat = bus.attributes.latitude;
 		var ln = bus.attributes.longitude;
 		var pos = {lat:lat,ln:ln};
+		console.log('bus = '+bus.id);
 		console.log(JSON.stringify(pos));
-	})
+	});
 
 })
 .catch(reason => console.log(reason.message))
 
-console.log('here');
 	// ------------------------------------
 	//	YOUR CODE
 	//	1 - Use fetch to request url

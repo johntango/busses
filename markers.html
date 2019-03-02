@@ -1,0 +1,27 @@
+<!DOCTYPE html><html>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<div id="map" style="width:800px; height:600px"></div>
+<script>
+
+function init() {    
+    var myLatLng = new google.maps.LatLng( 42.357261, -71.092626 );
+    var options = {
+            zoom: 16,
+            center: myLatLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById('map'), options);
+    marker = new google.maps.Marker( {
+            position: myLatLng, 
+            icon: { 
+                path:google.maps.SymbolPath.CIRCLE,
+                fillColor: 'red',
+                fillOpacity: 0.5,
+                scale:10,
+                strokeWeight:0
+            },
+            map: map
+    });
+}
+window.onload = init;
+</script></html>
