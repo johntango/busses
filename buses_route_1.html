@@ -22,29 +22,31 @@ function init(){
 // Add bus markers to map
 async function addMarkers(){
 	// get bus data
-	var locations = await getBusLocations();
+	var buses = await getBusLocations();
+	buses.forEach(function(bus){
+		var marker = getMarker(bus.id);
+		console.log(marker);
+		if(marker == null ) {
+			addMarker(bus);
+			marker = getMarker(bus.id)
+		}
+		moveMarker(marker, bus);
+	})
 
-	// -------------------------------------------------
-	//   YOUR CODE
-	//     Use forEach to loop through buses.
-	//     If bus exist, move marker.
-	//     If bus does not exist, add marker.
-	// -------------------------------------------------
-
-	// timer
 	console.log(new Date());
 	setTimeout(addMarkers,15000);
 }
 
 // Request bus data from MBTA
 async function getBusLocations(){
-	var url = 'https://api-v3.mbta.com/vehicles?api_key=ca34f7b7ac8a445287cab52fb451030a&filter[route]=1&include=trip';	
+	var url = "https://api-v3.mbta.com/vehicles?api_key=063e0d618e474b77b6c7260d590631b5&filter[route]=1&include=trip";
 
-	// -------------------------------------------------
-	//   YOUR CODE
-	//     Fetch vehicle data.
-	//     return json data.
-	// -------------------------------------------------
+	let response = await fetch(url);
+  // only proceed once promise is resolved
+  	let data = await response.json();
+  // only proceed once second promise is resolved
+  	return data.data;
+	
 }
 
 function addMarker(bus){
@@ -85,7 +87,7 @@ function getMarker(id){
 	var marker = markers.find(function(item){
 		return item.id === id;
 	});
-	return marker;
+	return marker; 
 }
 
 window.onload = init;
